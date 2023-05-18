@@ -1,15 +1,22 @@
 import React from 'react';
 
 import Css from './ContactList.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { deleteContact } from 'redux/ContactsSlice';
 
 export function ContactList() {
+  const dispatch = useDispatch()
   const contacts = useSelector(state => state.contacts);
   const filter = useSelector(state => state.filter);
   const visibleContacts = contacts.filter(contact =>
     contact.data.name.toLowerCase().includes(filter.toLowerCase())
   );
+    const deleteContacts = contactId => {
+      dispatch(deleteContact(contactId))
 
+    
+    }
   return (
     <div>
       <ul className={Css.contactBlock}>
@@ -21,7 +28,7 @@ export function ContactList() {
                   <span className={Css.contactItem}>{item.data.name}</span>
                   <span className={Css.contactItem}>{item.data.number}</span>
                 </div>
-                <button type="button">Delete</button>
+                <button type="button" onClick={()=>deleteContacts(item.id)}>Delete</button>
               </li>
             </>
           );

@@ -4,8 +4,9 @@ export const contactSlice = createSlice({
     name: 'contacts', 
     initialState: [],
     reducers: {
-        addContact: (state, action) => [...state, action.payload]
+        addContact: (state, action) => [...state, action.payload],
+        deleteContact: (state, action)=>  state.filter(contact => contact.id !== action.payload)
     }
 })
 
-export const {addContact} = contactSlice.actions
+export const {addContact, deleteContact} = contactSlice.actions

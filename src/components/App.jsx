@@ -39,7 +39,7 @@ return (
     <Form onSubmit={formSubmit} />
   </Section>
   <Section title="Contacts">
-  <Filter/>
+  <Filter />
       {contacts.length > 0 ? (
         <ContactList
           />
