@@ -18,12 +18,10 @@ export function App (){
 const contacts = useSelector(state => state.contacts)
 const filter = useSelector(state => state.filter)
 console.log(contacts)
-  // const visibleContacts = contacts.filter(contact =>
-  //   contact.data.name.toLowerCase().includes(filter.toLowerCase())
-  // );
+ 
    const formSubmit = data => {
     const findDublicate = contacts.some(
-     contact => contact.data.name.toLowerCase() === data.name.toLowerCase()
+     contact => contact.data.name === data.name
    );
        if (findDublicate) {
       alert(`${data.name} already exsist`);
@@ -35,15 +33,13 @@ console.log(contacts)
     };
     dispatch(addContact(numbers))
   }
-    const changeFilter = e => {
-    dispatch(addFIlteredContact(e.currentTarget.value));
-  };
+ 
 return (
   <><Section title="Phonebook">
     <Form onSubmit={formSubmit} />
   </Section>
   <Section title="Contacts">
-  <Filter value={filter} onChange={changeFilter} />
+  <Filter/>
       {contacts.length > 0 ? (
         <ContactList
           />
