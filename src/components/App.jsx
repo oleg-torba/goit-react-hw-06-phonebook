@@ -36,9 +36,10 @@ export function App() {
       <Section title="Contacts">
         <Filter />
 
-        <ContactList />
+       {contacts.contacts.length > 0 ? 
+        <ContactList /> :  <Notification message="There are no contacts" />}
 
-        <Notification message="There are no contacts" />
+       
       </Section>
     </>
   );
