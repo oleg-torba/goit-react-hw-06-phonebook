@@ -1,15 +1,35 @@
 
 
 import Css from '../ContactList/ContactList.module.css';
-import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { nanoid } from 'nanoid';
+import { useSelector, useDispatch } from 'react-redux';
+import { addContact } from 'redux/ContactsSlice';
 
 
-export function Form({onSubmit}) {
+export function Form() {
   const [number, setNumber] = useState('');
   const [name, setName] = useState('');
+  const dispatch = useDispatch()
 
+  const contacts = useSelector(state => state.contacts);
 
+  const formSubmit = data => {
+    const findDublicate = contacts.contacts.some(
+      contact => contact.data.name.toLowerCase() === data.name.toLowerCase()
+    );
+    if (findDublicate) {
+      alert(`${data.name} already exsist`);
+      return;
+    }
+    const numbers = {
+      id: nanoid(),
+      data,
+    };
+    dispatch(addContact(numbers));
+    setName('')
+    setNumber('')
+  };
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -28,9 +48,7 @@ export function Form({onSubmit}) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    setName('');
-    setNumber('');
-    onSubmit({ name, number });
+    formSubmit({ name, number });
   };
 
   return (
@@ -68,6 +86,3 @@ export function Form({onSubmit}) {
   );
 }
 
-Form.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
